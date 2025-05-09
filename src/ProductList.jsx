@@ -9,7 +9,7 @@ function ProductList({ onHomeClick }) {
     const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
     const cart = useSelector(state => state.cart.items);
     const dispatch = useDispatch();
-    const [addedToCart, setAddedToCart] = useState({});
+    
 
     const plantsArray = [
         {
@@ -224,7 +224,7 @@ function ProductList({ onHomeClick }) {
         padding: '15px',
         display: 'flex',
         justifyContent: 'space-between',
-        alignIems: 'center',
+        alignItems: 'center',
         fontSize: '20px',
     }
     const styleObjUl = {
@@ -260,18 +260,13 @@ function ProductList({ onHomeClick }) {
     };
 
     const handleAddToCart = (plant) => {
-        
-        setAddedToCart((previousState) => ({
-            ...previousState,
-            [plant.name]:true,
-        }));
-        
         dispatch(addItem(plant));
     };
 
-    useEffect(() => {
-        console.log("Updated addedToCart: ", addedToCart);
-    }, [addedToCart]);
+    const isInCart = (plantName) => {
+        return cart.some(item => item.name === plantName)
+    };
+
     
     return (
         <div>
@@ -305,10 +300,10 @@ function ProductList({ onHomeClick }) {
                                     <h3 className='product-title'>{plant.name}</h3>
                                     <div className='product-description'>{plant.description}</div>
                                     <div className='product-price'>{plant.cost}</div>
-                                    <button className={`product-button ${addedToCart[plant.name] ? 'added-to-cart' : ''}`}
+                                    <button className={`product-button ${isInCart(plant.name) ? 'added-to-cart' : ''}`}
                                      onClick={()=> handleAddToCart(plant)}
-                                    disabled={addedToCart[plant.name]}>
-                                        {addedToCart[plant.name] ? 'Added' : 'Add to Cart'}
+                                    disabled={isInCart(plant.name)}>
+                                        {isInCart(plant.name) ? 'Added' : 'Add to Cart'}
                                     </button>
                                 </div>
                             ))}

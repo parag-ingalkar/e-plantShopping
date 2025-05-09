@@ -80,7 +80,7 @@ const handleCheckoutShopping = (e) => {
           </div>
         ))
     ):(
-        <p> Your Cart is empty. </p>
+        <div> Your Cart is empty. </div>
     )}
       </div>
       <div style={{ marginTop: '20px', color: 'black' }} className='total_cart_amount'></div>
