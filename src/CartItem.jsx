@@ -6,20 +6,31 @@ import './CartItem.css';
 const CartItem = ({ onContinueShopping }) => {
   const cart = useSelector(state => state.cart.items);
   const dispatch = useDispatch();
-
+  
   // Calculate total amount for all products in the cart
-  const calculateTotalAmount = () => {
- 
-  };
+  const calculateTotalAmount = (cart) => {
+  let total = 0;
+
+  cart.forEach((item) => {
+    const quantity = item.quantity;
+    const cost = parseFloat(item.cost.substring(1));
+    total += quantity * cost;
+  });
+
+  return total;
+};
 
   const handleContinueShopping = (e) => {
-   
-  };
-
-
+  e.preventDefault();
+  onContinueShopping(e); // Call the parent-provided function to switch views
+};
 
   const handleIncrement = (item) => {
   };
+
+  const handleCheckoutShopping = (e) => {
+  alert('Functionality to be added for future reference');
+    };
 
   const handleDecrement = (item) => {
    
